@@ -30,8 +30,8 @@
 
 ### Using `.map()` — Synchronous transformation
 ```java
-Single.just(5)
-    .map(x -> x * 2) // 5 → 10
+Single.just("monday")
+    .map(String::toUpperCase) // monday -> MONDAY
     .subscribe(System.out::println);
 ```
 
