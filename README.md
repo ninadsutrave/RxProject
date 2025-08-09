@@ -14,15 +14,15 @@
 
 ## 2. `.map()` vs `.flatMap()` Comparison
 
-| Feature                   | `.map()`                                                  | `.flatMap()`                                                                           |
-|---------------------------|-----------------------------------------------------------|----------------------------------------------------------------------------------------|
-| **Return type of lambda** | `T → R` (plain value)                                     | Transforms each emitted item into another reactive source (Observable, Single, etc.)   |
-| **Use case**              | Transform value synchronously and quickly                 | Switch to another reactive source (often async or I/O)                                 |
-| **Threading**             | Runs on current scheduler                                 | Respects scheduler of returned reactive source                                         |
-| **Flattening**            | No flattening needed                                      | Flattens inner reactive sources into one stream                                        |
-| **Blocking allowed?**     | Should be non-blocking                                    | Can wrap blocking calls with `fromCallable()` and switch scheduler                     |
-| **Example**               | Convert `"foo"` → `"FOO"`                                 | Fetch user data from API after getting username                                        |
-| **Analogy**               | “Change this thing into another thing”                    | “Use this thing to get something else”                                                 |
+| Feature                   | `.map()`                                                | `.flatMap()`                                                                           |
+|---------------------------|---------------------------------------------------------|----------------------------------------------------------------------------------------|
+| **Return type of lambda** | `T → R` (plain value)                                   | Transforms each emitted item into another reactive source (Observable, Single, etc.)   |
+| **Use case**              | Transform value synchronously and quickly               | Switch to another reactive source (often async or I/O)                                 |
+| **Threading**             | Continues on the same thread as the outer stream        | `flatMap` doesn’t force the inner stream to follow the outer stream’s thread           |
+| **Flattening**            | No flattening needed                                    | Flattens inner reactive sources into one stream                                        |
+| **Blocking allowed?**     | Should be non-blocking                                  | Can wrap blocking calls with `fromCallable()` and switch scheduler                     |
+| **Example**               | Convert `"foo"` → `"FOO"`                               | Fetch user data from API after getting username                                        |
+| **Analogy**               | “Change this thing into another thing”                  | “Use this thing to get something else”                                                 |
 
 ---
 
