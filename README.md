@@ -44,3 +44,26 @@ Single.just("user_123")
 
 .subscribe() starts the data flow in a reactive chain by connecting the producer (source) to a consumer (observer).
 It tells RxJava: "Okay, I’m ready — start emitting and send me the results or errors."
+
+### Flatmap "flattens inner reactive sources into one stream"
+
+####  What does this even mean?
+
+When .flatMap() returns another reactive source, it merges the inner emissions into the outer stream.
+Without it, you’d end up with nested streams like Observable<Observable<T>>.
+
+```java
+// Without flattening (map)
+Observable.just("apple", "banana")
+.map(fruit -> Observable.just(fruit.toUpperCase()))
+.subscribe(System.out::println);
+// Prints Observable objects, not fruits
+// io.reactivex.rxjava3.internal.operators.observable.ObservableJust@4b67cf4d
+// io.reactivex.rxjava3.internal.operators.observable.ObservableJust@7ea987ac
+
+// With flattening (flatMap)
+Observable.just("apple", "banana")
+.flatMap(fruit -> Observable.just(fruit.toUpperCase()))
+.subscribe(System.out::println);
+// Prints: APPLE, BANANA
+```
